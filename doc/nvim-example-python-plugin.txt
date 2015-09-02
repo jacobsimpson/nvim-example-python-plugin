@@ -1,0 +1,19 @@
+*nvim-example-python-plugin.txt* A template of a remote Python plugin.
+
+                  Example Remote Python Plugin
+
+==============================================================================
+
+CONTENTS                                 *nvim-example-python-plugin-contents*
+
+    1. Introduction .................... |nvim-example-python-plugin-intro|
+
+
+Original Author:    Jacob Simpson
+License:            The Unlicense
+
+INTRODUCTION                                *nvim-example-python-plugin-intro*
+
+A very simple example of a Python plugin in the new remote plugin style used by
+Neovim.
+
