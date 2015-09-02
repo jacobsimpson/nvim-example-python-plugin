@@ -47,19 +47,29 @@ There is some VimL in the plugin that will print when Neovim is starting up:
     Starting the example Python Plugin
 
 That will confirm that the VimL portions of the plugin are loading correctly.
-That does not guarantee that the Python portions of the plugin are loading.
 
-It should create a function that can be called.
+There is a function defined in the VimL portion of the plugin which echos some
+text. You can execute the function like this:
 
 ```VimL
 :exec DoItVimL()
 ```
 
+The next thing to do is to initialize the manifest for the Python part of the
+plugin. The manifest is a cache of the functionality implemented by the Python
+part of the plugin. To initialize the manifest, execute:
+
+```VimL
+:UpdateRemotePlugins
+```
+
+Now that the manifest is initialized, it should be possible to invoke the
+function defined in the Python part of the plugin. Look in \_\_init\_\_ to see
+the implementation.
+
 ```VimL
 :exec DoItPython()
 ```
-
-It should add some mapped key handlers.
 
 ## Changing the Interface
 
