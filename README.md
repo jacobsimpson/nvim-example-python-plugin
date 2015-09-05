@@ -157,6 +157,8 @@ For each change to the interface of the Python plugin, that is to say, any alter
 :UpdateRemotePlugins
 ```
 
+Restart Neovim after you update to make the changes take effect.
+
 ### <a id="client-log-file"></a>Python Client Log File
 
 Define this environment variable to get output logged from your Python client.
