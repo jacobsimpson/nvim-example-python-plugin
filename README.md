@@ -9,7 +9,8 @@
     - [Initializing Vim with Remote Plugin](#initializing)
     - [Testing the New Plugin](#testing)
 - [Development](#development)
-    - [Changing the Interface](#changing-interface)
+    - [Debugging](#debugging)
+    - [Plugin Interface Changes](#changing-interface)
 - [Troubleshooting](#troubleshooting)
     - [Refreshing the Manifest File](#refreshing-manifest)
     - [Python Client Log File](#client-log-file)
@@ -102,7 +103,36 @@ the implementation.
 On it's own, this plugin doesn't do anything interesting, so the expectation is
 that you will want to modify it.
 
-### <a id="changing-interface"></a>Changing the Interface
+### <a id="debugging"></a>Debugging
+
+In order to take advantage of the Python REPL and make it easier to test changes in your Python code, I usually take the following steps:
+
+1. Open a Neovim instance.
+2. Open a terminal inside Neovim. (:term)
+3. Start the Python, or IPython, interpreter in the Neovim terminal. (python, ipython)
+4. Execute this code in the Python interpreter:
+```Python
+import neovim
+import os
+
+nvim = neovim.attach('socket', path=os.environ['NVIM_LISTEN_ADDRESS'])
+```
+
+At this point, you can either execute commands directly against Neovim, to test the behavior of the interface:
+
+```Python
+nvim.current.buffer.name
+```
+
+or load your own plugin class and work with it directly.
+
+```Python
+execfile("rplugin/python/nvim-example-python-plugin.py")
+m = Main(nvim)
+m.doItPython([])
+```
+
+### <a id="changing-interface"></a>Plugin Interface Changes
 
 Neovim includes a step where the interface of the remote plugin is cached for
 Neovim, so that Neovim knows what functions and commands your plugin is making
@@ -149,8 +179,9 @@ ls ~/.nvimlog
 
 ### <a id="neovim-library"></a>Neovim Library
 
-I found that the Python neovim module was not installed on my system. I didn't
-see any great errors that lead me to that conclusion, so it is worth checking:
+One problem I encountered when I was first getting started was the Python
+neovim module was not installed on my system. I didn't see any great errors
+that lead me to that conclusion, so it is worth checking:
 
 ```Bash
 python -c "import neovim"
