@@ -1,4 +1,23 @@
-# Example Python Plugin for Neovim
+# Example Neovim Python Plugin
+
+- [Introduction](#introduction)
+- [Installing](#installing)
+    - [Downloading](#downloading)
+    - [Configuring Vim](#configuring-vim)
+    - [Initializing Vim with Remote Plugin](#initializing)
+    - [Testing the New Plugin](#testing)
+    - [Initializing Vim with Remote Plugin](#initializing)
+    - [Testing the New Plugin](#testing)
+- [Development](#development)
+    - [Changing the Interface](#changing-interface)
+- [Troubleshooting](#troubleshooting)
+    - [Refreshing the Manifest File](#refreshing-manifest)
+    - [Python Client Log File](#client-log-file)
+    - [Neovim Log File](#neovim-log-file)
+    - [Neovim Library](#neovim-library)
+- [References](#references)
+
+## <a id="introduction"></a>Introduction
 
 As part of the changes included in Neovim there is a new plugin model where
 plugins are separate processes which Neovim communicates to using the
@@ -7,21 +26,24 @@ MessagePack protocol.
 Since plugins are distinct from the Neovim process, it is possible to write
 plugins in many languages.
 
-This is a minimal example of a Python plugin. You should be able to (and feel
-free to) copy this repository, rename a couple files, include the plugin in
-your Vim config and see something happen.
+This is a minimal example of a Python plugin. When you want to create a new
+Python plugin, you should be able to (and feel free to) copy this repository,
+rename a couple files, include the plugin in your Vim config and see something
+happen.
 
-## Making a New Plugin
+## <a id="installing"></a>Installing
+
+### <a id="downloading"></a>Downloading
 
 The intention of this repository is to make it quick and easy to start a new
 plugin. It is just enough to show how to make the basics work.
 
 ```Bash
-git clone --depth 1 https://github.com/jacobsimpson/nvim-example-python-plugin ~/.vim/bundles
+git clone --depth 1 https://github.com/jacobsimpson/nvim-example-python-plugin ~/.vim/bundle/nvim-example-python-plugin
 rm -Rf ~/.vim/bundles/nvim-example-python-plugin/.git
 ```
 
-## Configuring Vim
+### <a id="configuring-vim"></a>Configuring Vim
 
 I use NeoBundle so this is an example of how to load this plugin in NeoBundle.
 
@@ -40,7 +62,19 @@ call neobundle#begin(expand('~/.vim/bundle/'))
 call neobundle#end()
 ```
 
-## Confirming the Plugin Loaded
+### <a id="initializing"></a>Initializing Vim with Remote Plugin
+
+The next thing to do is to initialize the manifest for the Python part of the
+plugin. The manifest is a cache that Vim keeps of the interface implemented by
+the Python part of the plugin. The functions and commands it interfaces.
+
+To initialize the manifest, execute:
+
+```VimL
+:UpdateRemotePlugins
+```
+
+### <a id="testing"></a>Testing the New Plugin
 
 There is some VimL in the plugin that will print when Neovim is starting up:
 
@@ -55,14 +89,6 @@ text. You can execute the function like this:
 :exec DoItVimL()
 ```
 
-The next thing to do is to initialize the manifest for the Python part of the
-plugin. The manifest is a cache of the functionality implemented by the Python
-part of the plugin. To initialize the manifest, execute:
-
-```VimL
-:UpdateRemotePlugins
-```
-
 Now that the manifest is initialized, it should be possible to invoke the
 function defined in the Python part of the plugin. Look in \_\_init\_\_ to see
 the implementation.
@@ -71,10 +97,17 @@ the implementation.
 :exec DoItPython()
 ```
 
-## Changing the Interface
+## <a id="development"></a>Development
 
-Neovim includes a process whereby the interface of the remote plugin are cached
-for Neovim. 
+On it's own, this plugin doesn't do anything interesting, so the expectation is
+that you will want to modify it.
+
+### <a id="changing-interface"></a>Changing the Interface
+
+Neovim includes a step where the interface of the remote plugin is cached for
+Neovim, so that Neovim knows what functions and commands your plugin is making
+available without having to wait while the external process containing the
+plugin is started.
 
 ```VimL
 :UpdateRemotePlugins
@@ -84,9 +117,17 @@ Run this command for *every* change in the plugin interface. Without this, you
 may see errors on from Neovim telling you methods are missing from your plugin.
 Or the new functionality you are trying to add just won't work.
 
-## Troubleshooting
+## <a id="troubleshooting"></a>Troubleshooting
 
-### Python Client Log File
+### <a id="refreshing-manifest"></a>Refreshing the Manifest File
+
+For each change to the interface of the Python plugin, that is to say, any alterations to the @neovim decorators, you need to update Neovim's manifest file:
+
+```VimL
+:UpdateRemotePlugins
+```
+
+### <a id="client-log-file"></a>Python Client Log File
 
 Define this environment variable to get output logged from your Python client.
 
@@ -100,13 +141,13 @@ The output files will have a number appended, and should be visible with this:
 ls ${HOME}/.nvim-python.log*
 ```
 
-### Neovim Log File
+### <a id="neovim-log-file"></a>Neovim Log File
 
 ```Bash
 ls ~/.nvimlog
 ```
 
-### Neovim Library
+### <a id="neovim-library"></a>Neovim Library
 
 I found that the Python neovim module was not installed on my system. I didn't
 see any great errors that lead me to that conclusion, so it is worth checking:
@@ -117,3 +158,15 @@ python -c "import neovim"
 
 Should execute without an error.
 
+## <a id="references"></a>References
+- [Neovim Remote Plugin Documentation](http://neovim.io/doc/user/remote_plugin.html)
+
+The Neovim docs for remote plugins. It's a little sparse, but captures the core
+detail.
+
+- [Neovim Python Client](https://github.com/neovim/python-client)
+
+The Neovim Python client is the Python API that wraps the MessagePack protocol
+Neovim uses to communicate with remote plugins. If you are looking for more
+information on how to use the vim parameter to the main object to control
+Neovim, this is the place to go.
