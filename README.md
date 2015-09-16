@@ -127,7 +127,7 @@ nvim.current.buffer.name
 or load your own plugin class and work with it directly.
 
 ```Python
-execfile("rplugin/python/nvim-example-python-plugin.py")
+%run "rplugin/python/nvim-example-python-plugin.py"
 m = Main(nvim)
 m.doItPython([])
 ```
@@ -151,13 +151,21 @@ Or the new functionality you are trying to add just won't work.
 
 ### <a id="refreshing-manifest"></a>Refreshing the Manifest File
 
-For each change to the interface of the Python plugin, that is to say, any alterations to the @neovim decorators, you need to update Neovim's manifest file:
+For each change to the interface of the Python plugin, that is to say, any
+alterations to the @neovim decorators, you need to update Neovim's manifest
+file:
 
 ```VimL
 :UpdateRemotePlugins
 ```
 
 Restart Neovim after you update to make the changes take effect.
+
+If there is a syntax error in the Python file, it may result in the plugin not
+loading. There may be no visible error. If you run the update command, and the
+commands and functions defined in the remote plugin are not available, the next
+useful troubleshooting step is to load your plugin directly in a Python
+interpreter to see if it works.
 
 ### <a id="client-log-file"></a>Python Client Log File
 
