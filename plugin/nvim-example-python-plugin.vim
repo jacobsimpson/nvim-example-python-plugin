@@ -6,5 +6,5 @@
 echo "Starting the example Python Plugin"
 
 function DoItVimL()
-    echo "DoItVimL"
+    echo "hello from DoItVimL"
 endfunction

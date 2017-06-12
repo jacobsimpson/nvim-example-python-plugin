@@ -7,5 +7,5 @@ class Main(object):
 
     @neovim.function('DoItPython')
     def doItPython(self, args):
-        self.vim.command('echo "hello"')
+        self.vim.command('echo "hello from DoItPython"')
 

@@ -41,7 +41,7 @@ plugin. It is just enough to show how to make the basics work.
 
 ```Bash
 git clone --depth 1 https://github.com/jacobsimpson/nvim-example-python-plugin ~/.vim/bundle/nvim-example-python-plugin
-rm -Rf ~/.vim/bundles/nvim-example-python-plugin/.git
+rm -Rf ~/.vim/bundle/nvim-example-python-plugin/.git
 ```
 
 ### <a id="configuring-vim"></a>Configuring Vim
@@ -67,13 +67,16 @@ call neobundle#end()
 
 The next thing to do is to initialize the manifest for the Python part of the
 plugin. The manifest is a cache that Vim keeps of the interface implemented by
-the Python part of the plugin. The functions and commands it interfaces.
+the Python part of the plugin. The functions and commands it implements.
 
 To initialize the manifest, execute:
 
 ```VimL
 :UpdateRemotePlugins
 ```
+
+**NOTE:** After initializing the manifest, you must restart neovim for the python
+functions be be available.
 
 ### <a id="testing"></a>Testing the New Plugin
 
