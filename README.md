@@ -63,6 +63,18 @@ call neobundle#begin(expand('~/.vim/bundle/'))
 call neobundle#end()
 ```
 
+If you use vim-plug, you can add this line to your plugin section:
+
+```VimL
+Plug 'jacobsimpson/nvim-example-python-plugin'
+```
+
+After running `:PlugInstall`, the files should appear in your `~/.config/nvim/plugged` directory (or whatever path you have configured for plugins).
+
+### <a id="initializing">Python Version</a>
+
+This plugin code works with Python 2. You can make it work with Python 3 by changing the `rplugin/python` directory to be `rplugin/python3`. See the [python-client remote plugin documentation](https://github.com/neovim/python-client#remote-new-style-plugins) for more information.
+
 ### <a id="initializing"></a>Initializing Vim with Remote Plugin
 
 The next thing to do is to initialize the manifest for the Python part of the
