@@ -4,8 +4,7 @@
 - [Installing](#installing)
     - [Downloading](#downloading)
     - [Configuring Vim](#configuring-vim)
-    - [Initializing Vim with Remote Plugin](#initializing)
-    - [Testing the New Plugin](#testing)
+    - [Python Version](#python_version)
     - [Initializing Vim with Remote Plugin](#initializing)
     - [Testing the New Plugin](#testing)
 - [Development](#development)
@@ -71,7 +70,7 @@ Plug 'jacobsimpson/nvim-example-python-plugin'
 
 After running `:PlugInstall`, the files should appear in your `~/.config/nvim/plugged` directory (or whatever path you have configured for plugins).
 
-### <a id="initializing">Python Version</a>
+### <a id="python_version"></a>Python Version
 
 This plugin code works with Python 2. You can make it work with Python 3 by changing the `rplugin/python` directory to be `rplugin/python3`. See the [python-client remote plugin documentation](https://github.com/neovim/python-client#remote-new-style-plugins) for more information.
 
